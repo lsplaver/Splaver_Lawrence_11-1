@@ -8,7 +8,7 @@ namespace QuarterlySales.Models
 {
     public class Sale
     {
-        public int SalesId { get; set; }
+        public int SaleId { get; set; }
 
         [Required(ErrorMessage = "Please enter a sales quarter.")]
         [Range(1, 4, ErrorMessage = "Please enter a quarter between 1 and 4.")]
