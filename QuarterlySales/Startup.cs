@@ -27,7 +27,8 @@ namespace QuarterlySales
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<QuarterlySalesContext>(options => options.UseSqlServer(Configuration.GetConnectionString("QuarterlySalesContext")));
+            services.AddDbContext<QuarterlySalesContext>(options =>
+             options.UseSqlServer(Configuration.GetConnectionString("QuarterlySalesContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
