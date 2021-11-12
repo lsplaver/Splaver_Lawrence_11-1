@@ -32,7 +32,7 @@ namespace QuarterlySales.Controllers
             //}
             //ViewBag.EmployeeId = employeeArray;
             vm.Employees = context.Employees.ToList();
-            vm.Sales = context.Sales.ToList();
+            //vm.Sales = context.Sales.ToList();
             return View(vm);//new QuarterlySalesViewModel()); //Employee());
         }
 
@@ -45,6 +45,17 @@ namespace QuarterlySales.Controllers
         public IActionResult Add(QuarterlySalesViewModel employee)
         {
             QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
+            Employee checkFirstName = context.Employees.FirstOrDefault(e => e.FirstName == employee.CurrentEmployee.FirstName);
+            Employee checkLastName = context.Employees.FirstOrDefault(e => e.LastName == employee.CurrentEmployee.LastName);
+            Employee checkDateOfBirth = context.Employees.FirstOrDefault(e => e.DateOfBirth == employee.CurrentEmployee.DateOfBirth);
+
+            if (checkFirstName != null && checkLastName != null && checkDateOfBirth != null)
+            {
+                //ModelState.AddModelError("FirstName", $"{employee.CurrentEmployee.FirstName} is already in the database.");
+                //ModelState.AddModelError("LastName", $"{employee.CurrentEmployee.LastName} is already in the database.");
+                ModelState.AddModelError("DateOfBirth", $"{employee.CurrentEmployee.FirstName} {employee.CurrentEmployee.LastName} DOB({employee.CurrentEmployee.DateOfBirth}) is already in the database.");
+            }
+
             if (ModelState.IsValid)
             {
                 employee.CurrentEmployee.EmployeeName = employee.CurrentEmployee.FirstName + " " + employee.CurrentEmployee.LastName;
@@ -55,7 +66,7 @@ namespace QuarterlySales.Controllers
             else
             {
                 vm.Employees = context.Employees.ToList();
-                vm.Sales = context.Sales.ToList();
+                //vm.Sales = context.Sales.ToList();
                 ModelState.AddModelError("", "Please correct all errors.");
                 return View(vm);
             }

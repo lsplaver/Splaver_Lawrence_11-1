@@ -35,9 +35,9 @@ namespace QuarterlySales.Models
 
         public string EmployeeName { get; set; }
 
-        public Employee()
-        {
-            EmployeeName = FirstName + " " + LastName;
-        }
+        //public Employee()
+        //{
+        //    EmployeeName = FirstName + " " + LastName;
+        //}
     }
 }
