@@ -32,5 +32,12 @@ namespace QuarterlySales.Models
         [Required(ErrorMessage = "Please enter a manager.")]
         [Display(Name = "Manager")]
         public int ManagerId { get; set; }
+
+        public string EmployeeName { get; set; }
+
+        public Employee()
+        {
+            EmployeeName = FirstName + " " + LastName;
+        }
     }
 }

@@ -47,6 +47,7 @@ namespace QuarterlySales.Controllers
             QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
             if (ModelState.IsValid)
             {
+                employee.CurrentEmployee.EmployeeName = employee.CurrentEmployee.FirstName + " " + employee.CurrentEmployee.LastName;
                 context.Employees.Add(employee.CurrentEmployee);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");
