@@ -23,6 +23,7 @@ namespace QuarterlySales.Models
         public double Amount { get; set; }
 
         [Required(ErrorMessage = "Please select an employee.")]
+        [Display(Name ="Employee")]
         public int EmployeeId { get; set; } 
         public Employee Employee { get; set; }
     }

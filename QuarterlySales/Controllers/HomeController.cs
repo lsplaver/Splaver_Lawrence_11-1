@@ -51,6 +51,12 @@ namespace QuarterlySales.Controllers
             var sales = query.OrderBy(s => s.SaleId).ToList();
 
             vm.Sales = sales;
+            double totalSales = 0;
+            for (int y = 1; y <= context.Sales.Count(); y++)
+            {
+                totalSales += context.Sales.Find(y).Amount;
+            }
+            vm.TotalSales = totalSales;
             return View(vm);
         }
 
@@ -67,6 +73,7 @@ namespace QuarterlySales.Controllers
         {
             QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
             double totalSales = 0;
+            vm.Sales = context.Sales.ToList();
             for (int x = 0; x < context.Sales.Count(); x++)
             {
                 totalSales += context.Sales.Find(x).Amount;
