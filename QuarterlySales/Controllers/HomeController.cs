@@ -46,18 +46,54 @@ namespace QuarterlySales.Controllers
 
             IQueryable<Sale> query = context.Sales.Include(s => s.Employee);
 
+            int tempId;
+
             if (id != null)
             {
-                query = query.Where(s => s.EmployeeId == int.Parse(id));
+                tempId = int.Parse(id);
+            }
+            else
+            {
+                tempId = 0;
+            }
+
+            if (tempId > 0)
+            {
+                query = query.Where(s => s.EmployeeId == tempId);
             }
 
             var sales = query.OrderBy(s => s.SaleId).ToList();
 
             vm.Sales = sales;
             double totalSales = 0;
-            for (int y = 1; y <= context.Sales.Count(); y++)
+            //for (int y = 1; y <= vm.Sales.Count() /*context.Sales.Count()*/; y++)
+            //{
+                //}.Find(y).Amount;
+            //}
+            //for (int y = 1; y <= vm.Sales.Count(); y++)
+            //{
+            //    if (tempId != 0)
+            //    {
+            //        totalSales += vm.Sales.Find(s => s.EmployeeId == tempId).Amount;
+            //    }
+            //    else
+            //    {
+            //        totalSales += vm.Sales.Find(s => s.SaleId == y).Amount;
+            //    }
+            //}
+            if (tempId == 0)
             {
-                totalSales += context.Sales.Find(y).Amount;
+                for (int y = 1; y <= context.Sales.Count(); y++)
+                {
+                    totalSales += context.Sales.Find(y).Amount;
+                }
+            }
+            else
+            {
+                foreach (var temp in vm.Sales)
+                {
+                    totalSales += vm.Sales.Find(s => s.EmployeeId == tempId).Amount;
+                }
             }
             vm.TotalSales = totalSales;
             return View(vm);
