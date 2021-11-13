@@ -15,7 +15,10 @@ namespace QuarterlySales.Controllers
 
         //public HomeController(QuarterlySalesContext context) => this.context = context;
         public HomeController(QuarterlySalesContext ctx) => context = ctx;
-        public ViewResult Index(int id)
+        [HttpGet]
+        [Route("{controller}/{action}/{id?}")]
+        [Route("/")]
+        public IActionResult Index(string id)
         {
             //IQueryable<QuarterlySalesViewModel> sales = context.Sales
             //    .Include(s => s.Employee)
@@ -43,9 +46,9 @@ namespace QuarterlySales.Controllers
 
             IQueryable<Sale> query = context.Sales.Include(s => s.Employee);
 
-            if (id != 0)
+            if (id != null)
             {
-                query = query.Where(s => s.EmployeeId == id);
+                query = query.Where(s => s.EmployeeId == int.Parse(id));
             }
 
             var sales = query.OrderBy(s => s.SaleId).ToList();
@@ -59,6 +62,12 @@ namespace QuarterlySales.Controllers
             vm.TotalSales = totalSales;
             return View(vm);
         }
+
+        //[HttpPost]
+        //public RedirectToActionResult Index(int id)
+        //{
+
+        //}
 
         public string GetName(int id)
         {
@@ -83,9 +92,18 @@ namespace QuarterlySales.Controllers
         }
 
         [HttpPost]
-        public RedirectToActionResult Filter(int id)
+        public RedirectToActionResult Filter(int EmpId)
         {
-            return RedirectToAction("Index", id);
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
+            vm.Empid = EmpId;
+            if (vm.Empid > 0)
+            {
+                return RedirectToAction("Index", new { id = vm.Empid.ToString() });
+            }
+            else
+            {
+                return RedirectToAction("Index", new { id = string.Empty });
+            }
         }
     }
 }
