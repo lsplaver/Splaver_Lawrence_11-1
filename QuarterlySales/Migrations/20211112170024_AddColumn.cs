@@ -19,12 +19,10 @@ namespace QuarterlySales.Migrations
                 column: "EmployeeName",
                 value: "Ada Lovelace");
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.InsertData(
                 table: "Employees",
-                keyColumn: "EmployeeId",
-                keyValue: 2,
-                column: "EmployeeName",
-                value: "John Doe");
+                columns: new[] { "EmployeeId", "DateOfBirth", "DateOfHire", "EmployeeName", "FirstName", "LastName", "ManagerId" },
+                values: new object[] { 2, new DateTime(1987, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1996, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "John Doe", "John", "Doe", 1 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
