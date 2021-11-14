@@ -54,26 +54,26 @@ namespace QuarterlySales.Controllers
             return View(vm);
         }
 
-        public string GetName(int id)
-        {
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            vm.Name = context.Employees.Find(id).FirstName;
-            vm.Name = vm.Name + " ";
-            vm.Name = vm.Name + context.Employees.Find(id).LastName;
-            return vm.Name;
-        }
+        //public string GetName(int id)
+        //{
+        //    QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
+        //    vm.Name = context.Employees.Find(id).FirstName;
+        //    vm.Name = vm.Name + " ";
+        //    vm.Name = vm.Name + context.Employees.Find(id).LastName;
+        //    return vm.Name;
+        //}
 
-        public double GetTotalSales()
-        {
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            double totalSales = 0;
-            for (int x = 0; x < context.Sales.Count(); x++)
-            {
-                totalSales += context.Sales.Find(x).Amount;
-            }
-            vm.TotalSales = totalSales;
-            return vm.TotalSales;
-        }
+        //public double GetTotalSales()
+        //{
+        //    QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
+        //    double totalSales = 0;
+        //    for (int x = 0; x < context.Sales.Count(); x++)
+        //    {
+        //        totalSales += context.Sales.Find(x).Amount;
+        //    }
+        //    vm.TotalSales = totalSales;
+        //    return vm.TotalSales;
+        //}
 
         [HttpPost]
         public RedirectToActionResult Filter(int id)
