@@ -15,9 +15,10 @@ namespace QuarterlySales.Controllers
 
         //public HomeController(QuarterlySalesContext context) => this.context = context;
         public HomeController(QuarterlySalesContext ctx) => context = ctx;
-        [HttpGet]
-        [Route("{controller}/{action}/{id?}")]
-        [Route("/")]
+
+        //[HttpGet]
+        //[Route("{controller}/{action}/{id?}")]
+        //[Route("/")]
         public IActionResult Index(string id)
         {
             //IQueryable<QuarterlySalesViewModel> sales = context.Sales
@@ -40,22 +41,20 @@ namespace QuarterlySales.Controllers
 
             //var filters = new Filt
 
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            vm.Employees = context.Employees.ToList();
-            vm.Sales = context.Sales.ToList();
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel { Employees = context.Employees.ToList(), Sales = context.Sales.ToList() };
 
             IQueryable<Sale> query = context.Sales.Include(s => s.Employee);
 
-            int tempId;
+            int tempId = 0;
 
             if (id != null)
             {
                 tempId = int.Parse(id);
             }
-            else
-            {
-                tempId = 0;
-            }
+            //else
+            //{
+            //    tempId = 0;
+            //}
 
             if (tempId > 0)
             {
@@ -130,8 +129,7 @@ namespace QuarterlySales.Controllers
         [HttpPost]
         public RedirectToActionResult Filter(int EmpId)
         {
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            vm.Empid = EmpId;
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel { Empid = EmpId };
             if (vm.Empid > 0)
             {
                 return RedirectToAction("Index", new { id = vm.Empid.ToString() });
