@@ -1,1 +1,62 @@
-﻿
+﻿@model QuarterlySalesViewModel
+@{
+    ViewBag.Title = "Add Sales";
+}
+
+@section scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+<div class="container">
+    <div class="row">
+        <h2>Add Sales</h2>
+    </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <form asp-action="Add" method="post">
+            <div class="form-group row">
+                <label class="col-4" asp-for="CurrentSale.Quarter"></label>
+                <div class="col-auto">
+                    <input asp-for="CurrentSale.Quarter" class="form-control" />
+                </div>
+                <div class="col-auto">
+                    <span asp-validation-for="CurrentSale.Quarter" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4" asp-for="CurrentSale.Year"></label>
+                <div class="col-auto">
+                    <input asp-for="CurrentSale.Year" class="form-control" />
+                </div>
+                <div class="col-auto">
+                    <span asp-validation-for="CurrentSale.Year" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4" asp-for="CurrentSale.Amount"></label>
+                <div class="col-auto">
+                    <input asp-for="CurrentSale.Amount" type="text" class="form-control" />
+                </div>
+                <div class="col-auto">
+                    <span asp-validation-for="CurrentSale.Amount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-4" asp-for="CurrentSale.EmployeeId"></label>
+                <div class="col-auto">
+                    <select asp-for="CurrentSale.EmployeeId" class="form-control" asp-items="@(new SelectList(Model.Employees, "EmployeeId", "FullName"))">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-auto">
+                    <span asp-validation-for="CurrentSale.EmployeeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-primary">Add</button>
+                <a asp-action="Cancel" class="btn btn-outline-primary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
