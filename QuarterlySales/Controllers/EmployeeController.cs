@@ -55,10 +55,10 @@ namespace QuarterlySales.Controllers
 
             if (checkFirstName != null && checkLastName != null && checkDateOfBirth != null)
             {
-                ModelState.AddModelError("CurrentEmployee.DateOfBirth", $"{employee.CurrentEmployee.FirstName} {employee.CurrentEmployee.LastName} DOB({employee.CurrentEmployee.DateOfBirth}) is already in the database.");
+                ModelState.AddModelError("CurrentEmployee.DateOfBirth", $"{employee.CurrentEmployee.FirstName} {employee.CurrentEmployee.LastName} DOB({employee.CurrentEmployee.DateOfBirth.Value.Date}) is already in the database.");
             }
 
-            if (sameFirstName != null && sameLastName != null && sameDOB != null)
+            if (sameFirstName == employee.CurrentEmployee.FirstName && sameLastName == employee.CurrentEmployee.LastName && sameDOB == employee.CurrentEmployee.DateOfBirth)
             {
                 ModelState.AddModelError("CurrentEmployee.ManagerId", $"Manager and employee can't be the same person.");
             }
