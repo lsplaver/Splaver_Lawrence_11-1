@@ -12,7 +12,7 @@
         <form asp-action="Filter" method="post">
             <div class="form-group">
                 <label asp-for="Empid">Employee</label>
-                <select asp-for="Empid" class="form-control" asp-items="@(new SelectList(Model.Employees, "EmployeeId", "EmployeeName"))">
+                <select asp-for="Empid" class="form-control" asp-items="@(new SelectList(Model.Employees, "EmployeeId", "Name"))">
                     <option value=""></option>
                 </select>
             </div>

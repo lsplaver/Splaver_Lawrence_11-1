@@ -95,6 +95,7 @@ namespace QuarterlySales.Controllers
                 }
             }
             vm.TotalSales = totalSales;
+            //Employee employee e(tempId);
             return View(vm);
         }
 
@@ -104,14 +105,14 @@ namespace QuarterlySales.Controllers
 
         //}
 
-        //public string GetName(int id)
-        //{
-        //    QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-        //    vm.Name = context.Employees.Find(id).FirstName;
-        //    vm.Name = vm.Name + " ";
-        //    vm.Name = vm.Name + context.Employees.Find(id).LastName;
-        //    return vm.Name;
-        //}
+        public string GetName(int id)
+        {
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
+            vm.Name = context.Employees.Find(id).FirstName;
+            vm.Name += " ";
+            vm.Name += context.Employees.Find(id).LastName;
+            return vm.Name;
+        }
 
         //public double GetTotalSales()
         //{
