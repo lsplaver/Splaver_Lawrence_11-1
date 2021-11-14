@@ -22,18 +22,8 @@ namespace QuarterlySales.Controllers
         public ViewResult Add()
         {
             QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            //int temp = context.Employees.Count();
-            //int[] employeeArray;
-            //employeeArray = new int[temp];
-            //for (int x = 0, y = 1; x < temp; x++, y++)
-            //{
-            //    vm.CurrentEmployee.EmployeeId = context.Employees.Find(y).EmployeeId;
-            //    employeeArray[x] = vm.CurrentEmployee.EmployeeId;
-            //}
-            //ViewBag.EmployeeId = employeeArray;
             vm.Employees = context.Employees.ToList();
-            //vm.Sales = context.Sales.ToList();
-            return View(vm);//new QuarterlySalesViewModel()); //Employee());
+            return View(vm);
         }
 
         public IActionResult Cancel()
@@ -65,7 +55,6 @@ namespace QuarterlySales.Controllers
 
             if (ModelState.IsValid)
             {
-                //employee.CurrentEmployee.EmployeeName = employee.CurrentEmployee.FirstName + " " + employee.CurrentEmployee.LastName;
                 context.Employees.Add(employee.CurrentEmployee);
                 context.SaveChanges();
                 return RedirectToAction("Index", "Home");
@@ -73,7 +62,6 @@ namespace QuarterlySales.Controllers
             else
             {
                 vm.Employees = context.Employees.ToList();
-                //vm.Sales = context.Sales.ToList();
                 ModelState.AddModelError("", "Please correct all errors.");
                 return View(vm);
             }
