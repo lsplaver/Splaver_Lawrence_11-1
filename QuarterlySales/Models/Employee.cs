@@ -23,9 +23,11 @@ namespace QuarterlySales.Models
         [Display(Name = "Date of Birth")]
         public DateTime? DateOfBirth { get; set; }
 
+        //public int years => DateTime.Now.Year - 1995;
+
         [Required(ErrorMessage = "Please enter a hire date.")]
         // [Range(typeof(DateTime), "1/1/1995", "11/9/2021", ErrorMessage = "Please enter a date between 1/1/1995 and 11/9/2021.")]
-        [YearsFromNow(26, IsPast = true)]
+        [YearsFromNow(1995, IsPast = true)]
         [Display(Name = "Hire Date")]
         public DateTime? DateOfHire { get; set; }
 

@@ -11,7 +11,8 @@ namespace QuarterlySales.Models
         private int numYears;
         public YearsFromNowAttribute(int years)
         {
-            numYears = years;
+            int date = DateTime.Now.Year;
+            numYears = date - years;
         }
         public bool IsPast { get; set; }
 
