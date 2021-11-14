@@ -16,7 +16,7 @@
     <div class="row">
         <form asp-action="Add" method="post">
             <div class="form-group row">
-                <label class="col-4" asp-for="CurrentSale.Quarter"></label>
+                <label class="col-3" asp-for="CurrentSale.Quarter"></label>
                 <div class="col-auto">
                     <input asp-for="CurrentSale.Quarter" class="form-control" />
                 </div>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-4" asp-for="CurrentSale.Year"></label>
+                <label class="col-3" asp-for="CurrentSale.Year"></label>
                 <div class="col-auto">
                     <input asp-for="CurrentSale.Year" class="form-control" />
                 </div>
@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-4" asp-for="CurrentSale.Amount"></label>
+                <label class="col-3" asp-for="CurrentSale.Amount"></label>
                 <div class="col-auto">
                     <input asp-for="CurrentSale.Amount" type="text" class="form-control" />
                 </div>
@@ -43,7 +43,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-4" asp-for="CurrentSale.EmployeeId"></label>
+                <label class="col-3" asp-for="CurrentSale.EmployeeId"></label>
                 <div class="col-auto">
                     <select asp-for="CurrentSale.EmployeeId" class="form-control" asp-items="@(new SelectList(Model.Employees, "EmployeeId", "FullName"))">
                         <option value=""></option>
