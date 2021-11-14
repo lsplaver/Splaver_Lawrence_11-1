@@ -9,7 +9,7 @@ namespace QuarterlySales.Models
     {
         public List<Sale> Sales { get; set; }
         public List<Employee> Employees { get; set; }
-        public string Name { get; set; }
+        //public string Name { get; set; }
         public double TotalSales { get; set; }
         //public QuarterlySalesViewModel()
         //{
@@ -37,7 +37,7 @@ namespace QuarterlySales.Models
         //    }
         //}
 
-        public string EmployeeStringId { get; set; }
+        //public string EmployeeStringId { get; set; }
 
         //public int id { get; }
 
