@@ -45,15 +45,22 @@ namespace QuarterlySales.Controllers
         public IActionResult Add(QuarterlySalesViewModel employee)
         {
             QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
+            vm.Employees = context.Employees.ToList();
             Employee checkFirstName = context.Employees.FirstOrDefault(e => e.FirstName == employee.CurrentEmployee.FirstName);
             Employee checkLastName = context.Employees.FirstOrDefault(e => e.LastName == employee.CurrentEmployee.LastName);
             Employee checkDateOfBirth = context.Employees.FirstOrDefault(e => e.DateOfBirth == employee.CurrentEmployee.DateOfBirth);
+            string sameFirstName = vm.Employees.Find(e => e.EmployeeId == employee.CurrentEmployee.ManagerId).FirstName;
+            string sameLastName = vm.Employees.Find(e => e.EmployeeId == employee.CurrentEmployee.ManagerId).LastName;
+            DateTime? sameDOB = vm.Employees.Find(e => e.EmployeeId == employee.CurrentEmployee.ManagerId).DateOfBirth;
 
             if (checkFirstName != null && checkLastName != null && checkDateOfBirth != null)
             {
-                //ModelState.AddModelError("FirstName", $"{employee.CurrentEmployee.FirstName} is already in the database.");
-                //ModelState.AddModelError("LastName", $"{employee.CurrentEmployee.LastName} is already in the database.");
-                ModelState.AddModelError("DateOfBirth", $"{employee.CurrentEmployee.FirstName} {employee.CurrentEmployee.LastName} DOB({employee.CurrentEmployee.DateOfBirth}) is already in the database.");
+                ModelState.AddModelError("CurrentEmployee.DateOfBirth", $"{employee.CurrentEmployee.FirstName} {employee.CurrentEmployee.LastName} DOB({employee.CurrentEmployee.DateOfBirth}) is already in the database.");
+            }
+
+            if (sameFirstName != null && sameLastName != null && sameDOB != null)
+            {
+                ModelState.AddModelError("CurrentEmployee.ManagerId", $"Manager and employee can't be the same person.");
             }
 
             if (ModelState.IsValid)
