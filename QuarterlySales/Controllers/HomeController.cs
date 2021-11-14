@@ -15,7 +15,11 @@ namespace QuarterlySales.Controllers
 
         //public HomeController(QuarterlySalesContext context) => this.context = context;
         public HomeController(QuarterlySalesContext ctx) => context = ctx;
-        public ViewResult Index(int id)
+
+        //[HttpGet]
+        //[Route("{controller}/{action}/{id?}")]
+        //[Route("/")]
+        public IActionResult Index(string id)
         {
             //IQueryable<QuarterlySalesViewModel> sales = context.Sales
             //    .Include(s => s.Employee)
@@ -37,22 +41,69 @@ namespace QuarterlySales.Controllers
 
             //var filters = new Filt
 
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            vm.Employees = context.Employees.ToList();
-            vm.Sales = context.Sales.ToList();
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel { Employees = context.Employees.ToList(), Sales = context.Sales.ToList() };
 
             IQueryable<Sale> query = context.Sales.Include(s => s.Employee);
 
-            if (id != 0)
+            int tempId = 0;
+
+            if (id != null)
             {
-                query = query.Where(s => s.EmployeeId == id);
+                tempId = int.Parse(id);
+            }
+            //else
+            //{
+            //    tempId = 0;
+            //}
+
+            if (tempId > 0)
+            {
+                query = query.Where(s => s.EmployeeId == tempId);
             }
 
             var sales = query.OrderBy(s => s.SaleId).ToList();
 
             vm.Sales = sales;
+            double totalSales = 0;
+            //for (int y = 1; y <= vm.Sales.Count() /*context.Sales.Count()*/; y++)
+            //{
+            //}.Find(y).Amount;
+            //}
+            //for (int y = 1; y <= vm.Sales.Count(); y++)
+            //{
+            //    if (tempId != 0)
+            //    {
+            //        totalSales += vm.Sales.Find(s => s.EmployeeId == tempId).Amount;
+            //    }
+            //    else
+            //    {
+            //        totalSales += vm.Sales.Find(s => s.SaleId == y).Amount;
+            //    }
+            //}
+            if (tempId == 0)
+            {
+                for (int y = 1; y <= context.Sales.Count(); y++)
+                {
+                    totalSales += context.Sales.Find(y).Amount;
+                }
+            }
+            else
+            {
+                foreach (var temp in vm.Sales)
+                {
+                    totalSales += vm.Sales.Find(s => s.EmployeeId == tempId).Amount;
+                }
+            }
+            vm.TotalSales = totalSales;
+            //Employee employee e(tempId);
             return View(vm);
         }
+
+        //[HttpPost]
+        //public RedirectToActionResult Index(int id)
+        //{
+
+        //}
 
         //public string GetName(int id)
         //{
@@ -76,9 +127,17 @@ namespace QuarterlySales.Controllers
         //}
 
         [HttpPost]
-        public RedirectToActionResult Filter(int id)
+        public RedirectToActionResult Filter(int EmpId)
         {
-            return RedirectToAction("Index", id);
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel { Empid = EmpId };
+            if (vm.Empid > 0)
+            {
+                return RedirectToAction("Index", new { id = vm.Empid.ToString() });
+            }
+            else
+            {
+                return RedirectToAction("Index", new { id = string.Empty });
+            }
         }
     }
 }

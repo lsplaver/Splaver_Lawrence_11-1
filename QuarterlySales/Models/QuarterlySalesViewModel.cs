@@ -25,6 +25,8 @@ namespace QuarterlySales.Models
         public Employee CurrentEmployee { get; set; }
         public Sale CurrentSale { get; set; }
 
+        public int Empid { get; set; }
+
         //public QuarterlySalesViewModel()
         //{
         //    if (CurrentEmployee.EmployeeId.ToString() != null)
