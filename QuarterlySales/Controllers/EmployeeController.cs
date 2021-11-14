@@ -21,8 +21,7 @@ namespace QuarterlySales.Controllers
         [HttpGet]
         public ViewResult Add()
         {
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            vm.Employees = context.Employees.ToList();
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel { Employees = context.Employees.ToList() };
             return View(vm);
         }
 
@@ -34,8 +33,7 @@ namespace QuarterlySales.Controllers
         [HttpPost]
         public IActionResult Add(QuarterlySalesViewModel employee)
         {
-            QuarterlySalesViewModel vm = new QuarterlySalesViewModel();
-            vm.Employees = context.Employees.ToList();
+            QuarterlySalesViewModel vm = new QuarterlySalesViewModel { Employees = context.Employees.ToList() };
             Employee checkFirstName = context.Employees.FirstOrDefault(e => e.FirstName == employee.CurrentEmployee.FirstName);
             Employee checkLastName = context.Employees.FirstOrDefault(e => e.LastName == employee.CurrentEmployee.LastName);
             Employee checkDateOfBirth = context.Employees.FirstOrDefault(e => e.DateOfBirth == employee.CurrentEmployee.DateOfBirth);
